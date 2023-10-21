@@ -20,6 +20,9 @@ const server = Bun.serve({
       const body = figlet.textSync("Feed");
       throw new Error(body);
     }
+    if(url.pathname == '/greet'){
+      return new Response(Bun.file("./greet.txt"))
+    }
     return new Response('404!');
   },
   error(error){
