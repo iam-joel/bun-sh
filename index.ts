@@ -16,9 +16,19 @@ const server = Bun.serve({
       const body = figlet.textSync("contact");
       return new Response(body);
     }
-    const body = figlet.textSync("Hola!");
-    return new Response(body);
+    if(url.pathname == '/feed'){
+      const body = figlet.textSync("Feed");
+      throw new Error(body);
+    }
+    return new Response('404!');
   },
+  error(error){
+    return new Response(`<pre> ${error} \n ${error.stack} </pre>`, {
+      headers:{
+        'Content-type':'text/html'
+      }
+    })
+  }
 })
 
 console.log(`Listening on PORT ${server.port}`)
